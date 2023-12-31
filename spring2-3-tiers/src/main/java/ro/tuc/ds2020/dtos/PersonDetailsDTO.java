@@ -3,6 +3,7 @@ package ro.tuc.ds2020.dtos;
 import ro.tuc.ds2020.dtos.validators.annotation.AgeLimit;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -15,21 +16,25 @@ public class PersonDetailsDTO {
     private String address;
     @AgeLimit(limit = 18)
     private int age;
+    @NotNull
+    private Date creationts;
 
     public PersonDetailsDTO() {
     }
 
-    public PersonDetailsDTO( String name, String address, int age) {
+    public PersonDetailsDTO( String name, String address, int age, Date creationts) {
         this.name = name;
         this.address = address;
         this.age = age;
+        this.creationts = creationts;
     }
 
-    public PersonDetailsDTO(UUID id, String name, String address, int age) {
+    public PersonDetailsDTO(UUID id, String name, String address, int age, Date creationts) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.age = age;
+        this.creationts = creationts;
     }
 
     public UUID getId() {
@@ -62,6 +67,14 @@ public class PersonDetailsDTO {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Date getCreationts(){
+        return creationts;
+    }
+
+    public void setCreationts(Date creationts) {
+        this.creationts = creationts;
     }
 
     @Override

@@ -9,6 +9,7 @@ import ro.tuc.ds2020.dtos.PersonDetailsDTO;
 
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,10 +28,10 @@ public class PersonServiceIntegrationTests extends Ds2020TestConfig {
 
     @Test
     public void testInsertCorrectWithGetById() {
-        PersonDetailsDTO p = new PersonDetailsDTO("John", "Somewhere Else street", 22);
+        PersonDetailsDTO p = new PersonDetailsDTO("John", "Somewhere Else street", 22, new Date());
         UUID insertedID = personService.insert(p);
 
-        PersonDetailsDTO insertedPerson = new PersonDetailsDTO(insertedID, p.getName(),p.getAddress(), p.getAge());
+        PersonDetailsDTO insertedPerson = new PersonDetailsDTO(insertedID, p.getName(),p.getAddress(), p.getAge(), new Date());
         PersonDetailsDTO fetchedPerson = personService.findPersonById(insertedID);
 
         assertEquals("Test Inserted Person", insertedPerson, fetchedPerson);
@@ -38,7 +39,7 @@ public class PersonServiceIntegrationTests extends Ds2020TestConfig {
 
     @Test
     public void testInsertCorrectWithGetAll() {
-        PersonDetailsDTO p = new PersonDetailsDTO("John", "Somewhere Else street", 22);
+        PersonDetailsDTO p = new PersonDetailsDTO("John", "Somewhere Else street", 22, new Date());
         personService.insert(p);
 
         List<PersonDTO> personDTOList = personService.findPersons();

@@ -9,6 +9,8 @@ import ro.tuc.ds2020.Ds2020TestConfig;
 import ro.tuc.ds2020.dtos.PersonDetailsDTO;
 import ro.tuc.ds2020.services.PersonService;
 
+import java.util.Date;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,7 +25,7 @@ public class PersonControllerUnitTest extends Ds2020TestConfig {
     @Test
     public void insertPersonTest() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        PersonDetailsDTO personDTO = new PersonDetailsDTO("John", "Somewhere Else street", 22);
+        PersonDetailsDTO personDTO = new PersonDetailsDTO("John", "Somewhere Else street", 22, new Date());
 
         mockMvc.perform(post("/person")
                 .content(objectMapper.writeValueAsString(personDTO))
@@ -34,7 +36,7 @@ public class PersonControllerUnitTest extends Ds2020TestConfig {
     @Test
     public void insertPersonTestFailsDueToAge() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        PersonDetailsDTO personDTO = new PersonDetailsDTO("John", "Somewhere Else street", 17);
+        PersonDetailsDTO personDTO = new PersonDetailsDTO("John", "Somewhere Else street", 17, new Date());
 
         mockMvc.perform(post("/person")
                 .content(objectMapper.writeValueAsString(personDTO))
@@ -45,7 +47,7 @@ public class PersonControllerUnitTest extends Ds2020TestConfig {
     @Test
     public void insertPersonTestFailsDueToNull() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        PersonDetailsDTO personDTO = new PersonDetailsDTO("John", null, 17);
+        PersonDetailsDTO personDTO = new PersonDetailsDTO("John", null, 17, new Date());
 
         mockMvc.perform(post("/person")
                 .content(objectMapper.writeValueAsString(personDTO))

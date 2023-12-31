@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -28,14 +29,18 @@ public class Person  implements Serializable{
     @Column(name = "age", nullable = false)
     private int age;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creationts", nullable = false)
+    private Date creationts = new Date();
 
     public Person() {
     }
 
-    public Person(String name, String address, int age) {
+    public Person(String name, String address, int age, Date creationts) {
         this.name = name;
         this.address = address;
         this.age = age;
+        this.creationts = creationts;
     }
 
     public UUID getId() {
@@ -58,6 +63,10 @@ public class Person  implements Serializable{
         return address;
     }
 
+    public Date getCreationts() {
+        return creationts;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -68,5 +77,10 @@ public class Person  implements Serializable{
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @PrePersist
+    private void onCreate() {
+        creationts = new Date();
     }
 }
