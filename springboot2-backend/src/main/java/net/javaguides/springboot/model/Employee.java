@@ -1,10 +1,13 @@
 package net.javaguides.springboot.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -23,16 +26,20 @@ public class Employee {
 	
 	@Column(name = "email_id")
 	private String emailId;
+
+	@Column(name = "created")
+	private Date created;
 	
 	public Employee() {
 		
 	}
 	
-	public Employee(String firstName, String lastName, String emailId) {
+	public Employee(String firstName, String lastName, String emailId, Date created) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailId = emailId;
+		this.created = created;
 	}
 	public long getId() {
 		return id;
@@ -58,4 +65,15 @@ public class Employee {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = new Date();
+	}
+	
+    @PrePersist
+    private void onCreate() {
+        created = new Date();
+    }
 }

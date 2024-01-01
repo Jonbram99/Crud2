@@ -14,13 +14,13 @@ public class PersonBuilder {
     }
 
     public static PersonDetailsDTO toPersonDetailsDTO(Person person) {
-        return new PersonDetailsDTO(person.getId(), person.getName(), person.getAddress(), person.getAge(), person.getCreationts());
+        return new PersonDetailsDTO(person.getId(), person.getName(), person.getAddress(), person.getAge(), person.getCreated());
     }
 
     public static Person toEntity(PersonDetailsDTO personDetailsDTO) {
         return new Person(personDetailsDTO.getName(),
                 personDetailsDTO.getAddress(),
                 personDetailsDTO.getAge(),
-                personDetailsDTO.getCreationts());
+                personDetailsDTO.getCreated());
     }
 }

@@ -6,6 +6,8 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -29,24 +31,22 @@ public class Person  implements Serializable{
     @Column(name = "age", nullable = false)
     private int age;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creationts", nullable = false)
-    private Date creationts = new Date();
+    @Column(name = "created")
+    private Date created;
 
     public Person() {
     }
 
-    public Person(String name, String address, int age, Date creationts) {
+    public Person(String name, String address, int age, Date created) {
         this.name = name;
         this.address = address;
         this.age = age;
-        this.creationts = creationts;
+        this.created = created;
     }
 
     public UUID getId() {
         return id;
     }
-
     public void setId(UUID id) {
         this.id = id;
     }
@@ -54,7 +54,6 @@ public class Person  implements Serializable{
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -62,11 +61,6 @@ public class Person  implements Serializable{
     public String getAddress() {
         return address;
     }
-
-    public Date getCreationts() {
-        return creationts;
-    }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -74,13 +68,18 @@ public class Person  implements Serializable{
     public int getAge() {
         return age;
     }
-
     public void setAge(int age) {
         this.age = age;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+    public void setCreated(Date created) {
+        this.created = new Date();
+    }
     @PrePersist
     private void onCreate() {
-        creationts = new Date();
+        created = new Date();
     }
 }
